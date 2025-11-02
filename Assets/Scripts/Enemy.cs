@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     private float _minLifeTime = 2f;
     private float _maxLifeTime = 10f;
 
-    private void Awake()
+    private void OnEnable()
     {
         if (_coroutine == null)
         {

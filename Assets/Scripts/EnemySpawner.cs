@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem.XR.Haptics;
+using System.Collections;
 using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
@@ -7,12 +7,25 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyPool _enemiesPool;
     [SerializeField] private EnemySpawnPoint[] _spawners;
 
+    private Coroutine _coroutine;
+
     private float _spawnInterval = 2f;
     private int _minSpawnPointCount = 0;
+    private bool _isWork = true;
 
-    private void Start()
+    private void OnEnable()
     {
-        InvokeRepeating(nameof(SpawnEnemy), 0.0f, _spawnInterval);
+        _coroutine = StartCoroutine(SpawnEnemyAfterDelay(_spawnInterval));
+    }
+
+    private IEnumerator SpawnEnemyAfterDelay(float delay)
+    {
+        while (_isWork)
+        {
+            yield return new WaitForSeconds(delay);
+
+            SpawnEnemy();
+        }
     }
 
     private void SpawnEnemy()

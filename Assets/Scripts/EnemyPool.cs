@@ -54,6 +54,6 @@ public class EnemyPool : MonoBehaviour
 
     private void DestroyEnemy(Enemy enemy)
     {
-        Destroy(enemy);
+        Destroy(enemy.gameObject);
     }
 }
